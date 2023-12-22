@@ -1,0 +1,7 @@
+# 容器端口
+server:
+  port: 9898
+
+# webservice路径
+cxf:
+  path: /webservice
