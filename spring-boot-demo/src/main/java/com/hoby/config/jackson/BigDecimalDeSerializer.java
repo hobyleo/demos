@@ -1,4 +1,4 @@
-package com.hoby.jackson;
+package com.hoby.config.jackson;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

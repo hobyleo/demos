@@ -1,4 +1,4 @@
-package com.hoby.common;
+package com.hoby.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

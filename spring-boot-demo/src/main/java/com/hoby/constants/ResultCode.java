@@ -1,4 +1,4 @@
-package com.hoby.common;
+package com.hoby.constants;
 
 /**
  * 错误码

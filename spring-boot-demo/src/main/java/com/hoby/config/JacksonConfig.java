@@ -1,8 +1,8 @@
 package com.hoby.config;
 
 import cn.hutool.core.date.DatePattern;
-import com.hoby.jackson.BigDecimalDeSerializer;
-import com.hoby.jackson.BigDecimalSerializer;
+import com.hoby.config.jackson.BigDecimalDeSerializer;
+import com.hoby.config.jackson.BigDecimalSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.json.JsonReadFeature;

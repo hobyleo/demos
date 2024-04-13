@@ -1,6 +1,6 @@
 package com.hoby.advice;
 
-import com.hoby.common.CommonResponse;
+import com.hoby.model.vo.CommonResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

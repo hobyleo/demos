@@ -1,6 +1,6 @@
 package com.hoby.exception;
 
-import com.hoby.common.ResultCode;
+import com.hoby.constants.ResultCode;
 import lombok.Getter;
 
 /**
@@ -8,20 +8,20 @@ import lombok.Getter;
  * @since 2023-08-29
  */
 @Getter
-public class ApiException extends RuntimeException {
+public class BizException extends RuntimeException {
 
     private final int code;
     private final String message;
 
-    public ApiException() {
-        this(ResultCode.ERROR, "接口错误");
+    public BizException() {
+        this(ResultCode.ERROR, "业务处理异常");
     }
 
-    public ApiException(String message) {
+    public BizException(String message) {
         this(ResultCode.ERROR, message);
     }
 
-    public ApiException(int code, String message) {
+    public BizException(int code, String message) {
         super(message);
         this.code = code;
         this.message = message;

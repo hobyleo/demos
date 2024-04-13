@@ -1,8 +1,8 @@
 package com.hoby.advice;
 
-import com.hoby.common.CommonResponse;
-import com.hoby.common.ResultCode;
-import com.hoby.exception.ApiException;
+import com.hoby.model.vo.CommonResponse;
+import com.hoby.constants.ResultCode;
+import com.hoby.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindException;
@@ -33,8 +33,8 @@ public class GlobalExceptionAdvice {
         return response;
     }
 
-    @ExceptionHandler(ApiException.class)
-    public CommonResponse apiException(ApiException e) {
+    @ExceptionHandler(BizException.class)
+    public CommonResponse apiException(BizException e) {
         CommonResponse response = new CommonResponse(e.getCode(), e.getMessage());
         log.error("common service throws exception: [{}]", e.toString());
         return response;
