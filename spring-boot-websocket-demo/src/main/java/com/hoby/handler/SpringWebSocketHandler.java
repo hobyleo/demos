@@ -23,7 +23,7 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
         System.out.println("接收到客户端消息: " + message);
         try {
-            session.sendMessage(new TextMessage("服务端已接受到消息: " + message.toString()));
+            session.sendMessage(new TextMessage("服务端已接受到消息: " + message.getPayload()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

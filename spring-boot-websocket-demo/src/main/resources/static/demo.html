@@ -10,15 +10,16 @@
 <button id="sendBtn">发送</button>
 <div id="recv"></div>
 <script type="text/javascript">
-    var websocket = new WebSocket("ws://127.0.0.1:8080");
-    websocket.onopen = function(){
+    var websocket = new WebSocket("ws://127.0.0.1:48905");
+    websocket.onopen = function(e) {
         console.log("websocket open");
         document.getElementById("recv").innerHTML = "Connected";
     }
-    websocket.inclose = function(){
+    websocket.onclose = function(e) {
         console.log('websocket close');
+        console.log(e.code + ' ' + e.reason + ' ' + e.wasClean);
     }
-    websocket.onmessage = function(e){
+    websocket.onmessage = function(e) {
         console.log(e.data);
         document.getElementById("recv").innerHTML = e.data;
     }
