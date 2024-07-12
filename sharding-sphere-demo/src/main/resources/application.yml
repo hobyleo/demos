@@ -15,7 +15,7 @@ spring:
       ds0:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: "jdbc:mysql://192.168.139.130:3306/sharding_demo_0?useUnicode=true&characterEncoding=utf8\
+        url: "jdbc:mysql://192.168.139.130:3306/sharding_demo_0?useUnicode=true&characterEncoding=utf8\
                             &useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8\
                             &useSSL=true&allowMultiQueries=true&autoReconnect=true&nullCatalogMeansCurrent=true"
         username: "root"
@@ -23,7 +23,7 @@ spring:
       ds1:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: "jdbc:mysql://192.168.139.131:3306/sharding_demo_1?useUnicode=true&characterEncoding=utf8\
+        url: "jdbc:mysql://192.168.139.131:3306/sharding_demo_1?useUnicode=true&characterEncoding=utf8\
                             &useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8\
                             &useSSL=true&allowMultiQueries=true&autoReconnect=true&nullCatalogMeansCurrent=true"
         username: "root"
@@ -31,7 +31,7 @@ spring:
       ds2:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: "jdbc:mysql://192.168.139.132:3306/sharding_demo_2?useUnicode=true&characterEncoding=utf8\
+        url: "jdbc:mysql://192.168.139.132:3306/sharding_demo_2?useUnicode=true&characterEncoding=utf8\
                             &useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8\
                             &useSSL=true&allowMultiQueries=true&autoReconnect=true&nullCatalogMeansCurrent=true"
         username: "root"
@@ -40,14 +40,14 @@ spring:
       sharding:
         default-database-strategy:  # 分库策略
           standard:
-            sharding-column: user_id  # 按照分库的列
+            sharding-column: user_id  # 分库键
             sharding-algorithm-name: user-id-inline  # 分库算法名称(使用yml不能包含下划线,否则不生效)
         tables:
-          us_admin:  # 数据库表名前缀
-            actual-data-nodes: ds$->{0..2}.us_admin$->{0..1}  # 实际表名
+          us_admin:  # 逻辑表
+            actual-data-nodes: ds$->{0..2}.us_admin$->{0..1}  # 数据节点
             table-strategy:  # 分表策略
               standard:
-                sharding-column: addr_id  # 按照分表的列
+                sharding-column: addr_id  # 分表键
                 sharding-algorithm-name: addr-id-inline  # 分表算法名称(使用yml不能包含下划线,否则不生效)
             key-generate-strategy:
               column: id  # 主键列
