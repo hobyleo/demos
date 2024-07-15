@@ -1,6 +1,8 @@
 package com.hoby;
 
+import cn.hutool.core.date.DatePattern;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hoby.entity.UsAdmin;
 import com.hoby.service.UsAdminService;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +44,18 @@ public class ShardingSphereDemoApplicationTests {
         queryWrapper.orderByAsc(UsAdmin::getUserId);
         Page<UsAdmin> page = usAdminService.page(new Page<>(1, 20), queryWrapper);
         System.out.println(page.getRecords());
+    }
+
+    @Test
+    public void updateBatch() {
+        updateByUserId(1L);
+        updateByUserId(3L);
+    }
+
+    private void updateByUserId(Long userId) {
+        LambdaUpdateWrapper<UsAdmin> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(UsAdmin::getUserId, userId);
+        updateWrapper.set(UsAdmin::getUserName, LocalDateTime.now().format(DatePattern.PURE_DATETIME_FORMATTER) + "_" + userId);
+        usAdminService.update(updateWrapper);
     }
 }
