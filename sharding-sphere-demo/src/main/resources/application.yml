@@ -9,7 +9,9 @@ spring:
   # 分库分表配置
   shardingsphere:
     mode:
-      type: Memory
+      type: Standalone
+      repository:
+        type: JDBC
     datasource:
       names: ds0,ds1,ds2  # 数据源名称
       ds0:
