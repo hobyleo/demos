@@ -1,0 +1,19 @@
+server:
+  port: 9002
+
+spring:
+  kafka:
+    bootstrap-servers: 192.168.139.130:9092,192.168.139.131:9092,192.168.139.132:9092
+    producer:
+      acks: 1
+      retries: 3
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: spring-boot-kafka-demo
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      ack-mode: manual_immediate
