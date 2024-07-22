@@ -1,0 +1,14 @@
+server:
+  port: 9003
+
+xxl:
+  job:
+    admin:
+      addresses: http://192.168.139.130:9310/xxl-job-admin
+    accessToken: "default_token"
+    executor:
+      appname: spring-boot-xxl-job-demo-executor
+      ip: ""
+      port: 9999
+      logpath: /data/logs/xxl-job/spring-boot-xxl-job-demo-executor
+      logretentiondays: 30
