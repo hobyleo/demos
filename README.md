@@ -1,3 +1,3 @@
-# demos
+# spring-boot-demos
 
-个人日常收录的 demo 代码样例，包含各种不同的模块。
+Spring Boot 整合各种不同模块示例项目
