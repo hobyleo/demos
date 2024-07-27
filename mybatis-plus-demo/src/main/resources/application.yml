@@ -3,12 +3,27 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    username: root
-    password: 1234qwer
+    dynamic:
+      primary: mysql
+      strict: false
+      datasource:
+        mysql:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+          username: root
+          password: 1234qwer
+        oracle:
+          driver-class-name: oracle.jdbc.OracleDriver
+          url: jdbc:oracle:thin:@//localhost:1521/orcl
+          username: admin_user
+          password: admin_user
 
 mybatis-plus:
   type-aliases-package: com.hoby.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
