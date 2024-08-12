@@ -251,27 +251,26 @@ public class SignUtils {
     }
 
     public static void main(String[] args) {
-        // String json = "{\"ActCode\":\"3721\",\"BranID\":\"2859768\",\"DeviceID\":\"7433cb06-d3d3-3e7d-994a-8a76358749e2\",\"GDeviceSn\":\"1741BC101323\",\"GDeviceType\":\"AECR C10\",\"GEnv\":\"1\",\"GFromClientType\":\"1\",\"GManufacturer\":\"LANDI\",\"GOSVersion\":\"android 7.1.2\",\"GPlatform\":\"1\",\"GProduct\":\"1\",\"GVersion\":\"2.5.5\",\"MCCode\":\"41116\",\"PosNo\":\"1001\",\"ReqTime\":\"2023-10-07 09:28:42\",\"Sign\":\"00000000\",\"clientId\":\"0b1568ce3fd10fdc695e8f9cc0d08cc1\",\"pushId\":\"170976fa8afb6cf89b7\"}";
-        String json = "{\"ActCode\":\"3721\",\"BranID\":\"2859768\",\"Test\":[{\"DD\":\"1D\",\"CC\":\"1C\"},{\"DD\":\"2D\",\"CC\":\"2C\"},{\"DD\":null,\"CC\":\"3C\"}],\"Amount\":56.70,\"Nums\":[1,2,3]}";
+        String json = "{\"baseData\":{\"msgSendTime\":\"20240812104829\",\"msgCrrltnId\":\"60d02c16-216f-4171-b517-cc8396ae8134\",\"accessId\":\"P37020304446\",\"sign\":\"0FD33135EE016AB85871615E98632C1B1CBC879E5D7104EE8E6CA86993B9AC1B\"},\"bizData\":{\"ActCode\":\"9950\",\"infno\":\"9950\",\"MchntNo\":\"1723430909113\",\"Flag\":\"1\",\"ReqTime\":\"2024-08-12 10:48:29\",\"Ver\":\"0\",\"msgid\":\"P37020304446202408121048294357\",\"mdtrtarea_admvs\":\"370200\",\"insuplc_admdvs\":\"\",\"recer_sys_code\":\"MBS_LOCAL\",\"dev_no\":\"\",\"dev_safe_info\":\"\",\"cainfo\":\"\",\"signtype\":\"SM3\",\"infver\":\"V1.0\",\"opter_type\":\"1\",\"opter\":\"POS3.0\",\"opter_name\":\"POS3.0收银系统\",\"inf_time\":\"2024-08-12 10:48:29\",\"fixmedins_code\":\"P37020304446\",\"fixmedins_name\":\"青岛市海王星辰健康药房连锁有限公司海泊雅苑店\",\"sign_no\":\"\",\"input\":{\"purcinfo\":{\"med_list_codg\":\"Q02000000\",\"fixmedins_hilist_id\":\"P37020304446\",\"fixmedins_hilist_name\":\"青岛市海王星辰健康药房连锁有限公司海泊雅苑店\",\"dynt_no\":\"\",\"fixmedins_bchno\":\"D254_TR202441698855_6\",\"spler_name\":\"稳健医疗（天门）有限公司\",\"spler_pmtno\":\"\",\"manu_lotnum\":\"20240517\",\"prodentp_name\":\"稳健医疗（天门）有限公司\",\"aprvno\":\"粤械注准20152140780\",\"manu_date\":\"2024-05-17\",\"expy_end\":\"2027-05-16\",\"finl_trns_pric\":\"\",\"purc_retn_cnt\":3,\"purc_invo_codg\":\"\",\"purc_invo_no\":\"D254_TR202441698855_6\",\"rx_flag\":\"0\",\"purc_retn_stoin_time\":\"2024-08-07 00:00:00\",\"purc_retn_opter_name\":\"unknown\",\"prod_geay_flag\":\"\",\"memo\":\"\"}}}}";
 
-        String key = "4CF7D0E384633FBD8EE9F063A2E06E89F60FAE359515459369F29F6ED039EDFE";
+        String key = "86d57deacfef406686aecb9f93db10b6";
 
         JSONObject jsonTmp = JSONObject.fromObject(json);
 
-        System.out.println(json);
+        Object sign = jsonTmp.getJSONObject("baseData").remove("sign");
 
         String formatData = SignUtils.buildSignString(jsonTmp);
-        // 拼接字段之后的结果
-        System.out.println(formatData);
+        System.out.println("待签名字符串: " + formatData);
 
         String hex = Sm3Utils.encryptWithKey(formatData, key);
-        // 结果：8B417E379D9ED1645E78F55764A00CC0689FBC102260272F14F67FC09E9AEADA
-        System.out.println(hex);
+        System.out.println("签名: " + hex);
 
-        boolean flag = Sm3Utils.verifyWithKey(formatData, hex, key);
-
-        // 结果：true
-        System.out.println(flag);
+        boolean flag = hex.equalsIgnoreCase(sign.toString());
+        if (flag) {
+            System.out.println("验签成功");
+        } else {
+            System.out.printf("验签失败, 传值签名: %s, 正确签名: %s %n", sign, hex);
+        }
     }
 
 }
